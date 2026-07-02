@@ -116,6 +116,28 @@ Please confirm my order.`;
     }
   };
 
+  const handleContactUs = (e) => {
+    e.preventDefault();
+    const rawMessage = "Hi, I saw your Akara Plug website and I am interested in ordering.";
+    let whatsappUrl = `https://wa.me/2349031932413?text=${encodeURIComponent(rawMessage)}`;
+    
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const isMobile = isAndroid || isIOS;
+
+    if (isAndroid) {
+      whatsappUrl = `intent://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}#Intent;package=com.whatsapp;scheme=whatsapp;end`;
+    } else if (isIOS) {
+      whatsappUrl = `whatsapp-consumer://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}`;
+    }
+    
+    if (isMobile) {
+      window.location.href = whatsappUrl;
+    } else {
+      window.open(whatsappUrl, '_blank');
+    }
+  };
+
   return (
     <div className="app">
       {/* Navbar */}
@@ -125,9 +147,9 @@ Please confirm my order.`;
             <Utensils className="logo-icon" />
             <span>Akara Plug</span>
           </div>
-          <a href="https://wa.me/2349031932413?text=Hi%2C%20I%20saw%20your%20Akara%20Plug%20website%20and%20I%20am%20interested%20in%20ordering." target="_blank" rel="noreferrer" className="btn btn-outline nav-contact-btn">
+          <button onClick={handleContactUs} className="btn btn-outline nav-contact-btn">
             <Phone size={18} /> <span className="nav-btn-text">Contact Us</span>
-          </a>
+          </button>
         </div>
       </nav>
 
@@ -349,7 +371,7 @@ Please confirm my order.`;
             <Utensils /> <span>Akara Plug</span>
           </div>
           <p>© {new Date().getFullYear()} Akara Plug. All rights reserved.</p>
-          <p>Contact: <a href="https://wa.me/2349031932413?text=Hi%2C%20I%20saw%20your%20Akara%20Plug%20website%20and%20I%20am%20interested%20in%20ordering.">09031932413</a></p>
+          <p>Contact: <button onClick={handleContactUs} className="footer-contact-btn">09031932413</button></p>
         </div>
       </footer>
 

@@ -567,3 +567,19 @@
   background: var(--bg-light);
   border-color: var(--primary);
 }
+
+.footer-contact-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  text-decoration: underline;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.footer-contact-btn:hover {
+  color: var(--primary-hover);
+}
