@@ -32,7 +32,8 @@ function App() {
     if (selectedState) {
       const stateObj = locationData.find(s => s.state === selectedState);
       if (stateObj) {
-        setLgas(stateObj.lgas);
+        const sortedLgas = [...stateObj.lgas].sort((a, b) => a.localeCompare(b));
+        setLgas(sortedLgas);
       } else {
         setLgas([]);
       }
@@ -87,7 +88,7 @@ function App() {
 
 Please confirm my order.`;
 
-    const whatsappUrl = `https://wa.me/234903192413?text=${encodeURIComponent(rawMessage)}`;
+    const whatsappUrl = `https://wa.me/2349031932413?text=${encodeURIComponent(rawMessage)}`;
     window.open(whatsappUrl, '_blank');
   };
 
@@ -100,7 +101,7 @@ Please confirm my order.`;
             <Utensils className="logo-icon" />
             <span>Akara Plug</span>
           </div>
-          <a href="https://wa.me/234903192413" target="_blank" rel="noreferrer" className="btn btn-outline">
+          <a href="https://wa.me/2349031932413" target="_blank" rel="noreferrer" className="btn btn-outline">
             <Phone size={18} /> Contact Us
           </a>
         </div>
@@ -303,7 +304,7 @@ Please confirm my order.`;
             <Utensils /> <span>Akara Plug</span>
           </div>
           <p>© {new Date().getFullYear()} Akara Plug. All rights reserved.</p>
-          <p>Contact: <a href="https://wa.me/234903192413">0903 192 413</a></p>
+          <p>Contact: <a href="https://wa.me/2349031932413">09031932413</a></p>
         </div>
       </footer>
 
@@ -320,7 +321,8 @@ Please confirm my order.`;
               className="modal-search"
             />
             <div className="modal-list">
-              {locationData
+              {[...locationData]
+                .sort((a, b) => a.state.localeCompare(b.state))
                 .filter(loc => loc.state.toLowerCase().includes(searchQuery.toLowerCase()))
                 .map(loc => (
                   <button 
