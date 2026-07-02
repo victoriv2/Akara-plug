@@ -522,3 +522,48 @@
   text-align: left;
   background: white;
 }
+
+/* WhatsApp Type Selector */
+.whatsapp-type-selector {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.whatsapp-type-selector label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.type-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.type-btn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 2px solid #d6d3d1;
+  border-radius: 8px;
+  background: white;
+  color: var(--text-dark);
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.type-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  box-shadow: 0 4px 10px rgba(217, 119, 6, 0.2);
+}
+
+.type-btn:hover:not(.active) {
+  background: var(--bg-light);
+  border-color: var(--primary);
+}

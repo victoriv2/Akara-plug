@@ -15,6 +15,7 @@ function App() {
   const [isStateModalOpen, setIsStateModalOpen] = useState(false);
   const [isLgaModalOpen, setIsLgaModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [whatsappType, setWhatsappType] = useState('standard');
 
   const akaraSizes = [
     { id: 'small', name: 'Small Portion', price: 100, desc: 'Perfect for a quick bite' },
@@ -88,7 +89,17 @@ function App() {
 
 Please confirm my order.`;
 
-    const whatsappUrl = `https://wa.me/2349031932413?text=${encodeURIComponent(rawMessage)}`;
+    let whatsappUrl = `https://wa.me/2349031932413?text=${encodeURIComponent(rawMessage)}`;
+    
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    if (isAndroid) {
+      if (whatsappType === 'business') {
+        whatsappUrl = `intent://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;end`;
+      } else {
+        whatsappUrl = `intent://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}#Intent;package=com.whatsapp;scheme=whatsapp;end`;
+      }
+    }
+    
     window.open(whatsappUrl, '_blank');
   };
 
@@ -101,7 +112,7 @@ Please confirm my order.`;
             <Utensils className="logo-icon" />
             <span>Akara Plug</span>
           </div>
-          <a href="https://wa.me/2349031932413" target="_blank" rel="noreferrer" className="btn btn-outline nav-contact-btn">
+          <a href="https://wa.me/2349031932413?text=Hi%2C%20I%20saw%20your%20Akara%20Plug%20website%20and%20I%20am%20interested%20in%20ordering." target="_blank" rel="noreferrer" className="btn btn-outline nav-contact-btn">
             <Phone size={18} /> <span className="nav-btn-text">Contact Us</span>
           </a>
         </div>
@@ -261,6 +272,27 @@ Please confirm my order.`;
               <div className="order-summary mt-4">
                 <h4>Total Estimated Price</h4>
                 <div className="total-price">₦{calculateTotal()}</div>
+                
+                <div className="whatsapp-type-selector">
+                  <label>Open Order in:</label>
+                  <div className="type-buttons">
+                    <button 
+                      type="button" 
+                      className={`type-btn ${whatsappType === 'standard' ? 'active' : ''}`}
+                      onClick={() => setWhatsappType('standard')}
+                    >
+                      WhatsApp
+                    </button>
+                    <button 
+                      type="button" 
+                      className={`type-btn ${whatsappType === 'business' ? 'active' : ''}`}
+                      onClick={() => setWhatsappType('business')}
+                    >
+                      WA Business
+                    </button>
+                  </div>
+                </div>
+
                 <p className="summary-note">Payment will be confirmed on WhatsApp.</p>
                 
                 <button type="submit" className="btn btn-primary w-100 checkout-btn">
@@ -304,7 +336,7 @@ Please confirm my order.`;
             <Utensils /> <span>Akara Plug</span>
           </div>
           <p>© {new Date().getFullYear()} Akara Plug. All rights reserved.</p>
-          <p>Contact: <a href="https://wa.me/2349031932413">09031932413</a></p>
+          <p>Contact: <a href="https://wa.me/2349031932413?text=Hi%2C%20I%20saw%20your%20Akara%20Plug%20website%20and%20I%20am%20interested%20in%20ordering.">09031932413</a></p>
         </div>
       </footer>
 
