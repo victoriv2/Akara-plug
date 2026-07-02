@@ -101,8 +101,8 @@ Please confirm my order.`;
             <Utensils className="logo-icon" />
             <span>Akara Plug</span>
           </div>
-          <a href="https://wa.me/2349031932413" target="_blank" rel="noreferrer" className="btn btn-outline">
-            <Phone size={18} /> Contact Us
+          <a href="https://wa.me/2349031932413" target="_blank" rel="noreferrer" className="btn btn-outline nav-contact-btn">
+            <Phone size={18} /> <span className="nav-btn-text">Contact Us</span>
           </a>
         </div>
       </nav>
