@@ -92,15 +92,28 @@ Please confirm my order.`;
     let whatsappUrl = `https://wa.me/2349031932413?text=${encodeURIComponent(rawMessage)}`;
     
     const isAndroid = /Android/i.test(navigator.userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const isMobile = isAndroid || isIOS;
+
     if (isAndroid) {
       if (whatsappType === 'business') {
         whatsappUrl = `intent://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;end`;
       } else {
         whatsappUrl = `intent://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}#Intent;package=com.whatsapp;scheme=whatsapp;end`;
       }
+    } else if (isIOS) {
+      if (whatsappType === 'standard') {
+        whatsappUrl = `whatsapp-consumer://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}`;
+      } else {
+        whatsappUrl = `whatsapp://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}`;
+      }
     }
     
-    window.open(whatsappUrl, '_blank');
+    if (isMobile) {
+      window.location.href = whatsappUrl;
+    } else {
+      window.open(whatsappUrl, '_blank');
+    }
   };
 
   return (
