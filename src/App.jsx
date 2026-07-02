@@ -15,7 +15,6 @@ function App() {
   const [isStateModalOpen, setIsStateModalOpen] = useState(false);
   const [isLgaModalOpen, setIsLgaModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [whatsappType, setWhatsappType] = useState('standard');
 
   const akaraSizes = [
     { id: 'small', name: 'Small Portion', price: 100, desc: 'Perfect for a quick bite' },
@@ -96,17 +95,11 @@ Please confirm my order.`;
     const isMobile = isAndroid || isIOS;
 
     if (isAndroid) {
-      if (whatsappType === 'business') {
-        whatsappUrl = `intent://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;end`;
-      } else {
-        whatsappUrl = `intent://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}#Intent;package=com.whatsapp;scheme=whatsapp;end`;
-      }
+      whatsappUrl = `intent://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}#Intent;package=com.whatsapp;scheme=whatsapp;end`;
     } else if (isIOS) {
-      if (whatsappType === 'standard') {
-        whatsappUrl = `whatsapp-consumer://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}`;
-      } else {
-        whatsappUrl = `whatsapp://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}`;
-      }
+      whatsappUrl = `whatsapp-consumer://send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}`;
+    } else {
+      whatsappUrl = `https://web.whatsapp.com/send?phone=2349031932413&text=${encodeURIComponent(rawMessage)}`;
     }
     
     if (isMobile) {
@@ -308,25 +301,6 @@ Please confirm my order.`;
                 <h4>Total Estimated Price</h4>
                 <div className="total-price">₦{calculateTotal()}</div>
                 
-                <div className="whatsapp-type-selector">
-                  <label>Open Order in:</label>
-                  <div className="type-buttons">
-                    <button 
-                      type="button" 
-                      className={`type-btn ${whatsappType === 'standard' ? 'active' : ''}`}
-                      onClick={() => setWhatsappType('standard')}
-                    >
-                      WhatsApp
-                    </button>
-                    <button 
-                      type="button" 
-                      className={`type-btn ${whatsappType === 'business' ? 'active' : ''}`}
-                      onClick={() => setWhatsappType('business')}
-                    >
-                      WA Business
-                    </button>
-                  </div>
-                </div>
 
                 <p className="summary-note">Payment will be confirmed on WhatsApp.</p>
                 
